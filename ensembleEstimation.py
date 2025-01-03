@@ -19,7 +19,7 @@ class ensembleEstimation():
             clf = RandomForestClassifier(
                         max_depth=self.max_depth,
                         n_estimators=1, 
-                        random_state=i
+                        random_state=42
                     )
             clf.fit(self.X_train, self.y_train)
 
