@@ -14,7 +14,7 @@ class ensembleEstimation():
 
     def approx_learner_dist(self):
         accuracies = []
-        for i in range(100):
+        for _ in range(100):
             # Train a Random Forest with a single tree
             clf = RandomForestClassifier(
                         max_depth=self.max_depth,
