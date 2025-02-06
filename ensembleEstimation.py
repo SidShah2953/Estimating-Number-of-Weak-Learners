@@ -19,7 +19,7 @@ class ensembleEstimation():
             clf = RandomForestClassifier(
                         max_depth=self.max_depth,
                         n_estimators=1, 
-                        random_state=0
+                        random_state=2
                     )
             clf.fit(self.X_train, self.y_train)
 
@@ -52,14 +52,13 @@ class ensembleEstimation():
         return acc
     
 
-    def approximate(self, N, approx, type=None):
+    def approximate(self, N, approx):
         def binom_approx(mu_p, N, type):
-            prob = None
-            if type == 'small':
-                prob = norm.cdf((2 * mu_p - 1) * ((N + 1) / 2) ** 0.5)
-            elif type == 'large':
-                prob = norm.cdf((N * (2 * mu_p - 1) + 1) / (2 * (N * mu_p * (1 - mu_p)) ** 0.5))
-            
+            prob = 0.5 * \
+                    (
+                        norm.cdf((2 * mu_p - 1) * ((N + 1) / 2) ** 0.5) \
+                        + norm.cdf((N * (2 * mu_p - 1) + 1) / (2 * (N * mu_p * (1 - mu_p)) ** 0.5))
+                    )
             return prob
 
         def poisson_approx(mu_p, N):
